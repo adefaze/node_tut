@@ -1,119 +1,18 @@
+const EventEmitter = require('events')
 
-const { readFile, writeFile } = require('fs')
+const customEmitter = new EventEmitter()
 
-const util = require('util')
+// customEmitter.on(('response',(name,id)=>{
+//     console.log(`data received user ${name},with id ${id}`);
 
-const readFilePromise = util.promisify(readFile)
-const writeFilePromise = util.promisify(writeFile)
+// )}
 
-const start = async () => {
 
+// customer
 
-    try {
-        const first = await readFilePromise('./content/first.txt', 'utf8')
-        const second = await readFilePromise('./content/second.txt', 'utf8')
+customEmitter.on('response', (name, id) => {
+    console.log(`data received user ${name}, ${id}`);
 
-        await writeFilePromise('./content/await-promisfy.txt', `this is the promisy method ${first}, ${second}`)
-        console.log(first, second);
+})
 
-    } catch (error) {
-        console.log(error);
-
-    }
-
-
-
-}
-
-
-start()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const { readFile, writeFile } = require('fs').promises
-
-// // const util = require('util')
-// // const readFilePromise = util.promisify(readFile)
-// // const writeFilePromise = util.promisify(writeFile)
-
-
-
-// const start = async () => {
-//     try {
-//         const first = await readFile('./content/first.txt','utf8')
-//         const second = await readFile('./content/second.txt', 'utf8')
-
-//         await writeFile('./content/result-promise-await.txt',`This is awesome: ${first} , ${second}`)
-//         console.log(first, second);
-
-//     } catch (error) {
-//         console.log(error);
-
-//     }
-// }
-
-// start()
-
-
-
-
-// // const getText = (path) => {
-// //     return new Promise((resolve, reject) => {
-// //         readFile(path, 'utf8', (err, data) => {
-// //             if (err) {
-// //                 reject(err)
-// //             }
-// //             else {
-// //                 resolve(data)
-// //             }
-// //         })
-// //     })
-// // }
-
-// // getText('./content/first.txt').then((result) => console.log(result)).catch((err) => console.log(err))
-
-
-
+customEmitter.emit('response', 'john', 566)
